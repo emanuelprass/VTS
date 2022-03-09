@@ -1,0 +1,6 @@
+.vs
+obj/
+bin/
+Properties/PublishProfiles/
+packages/
+appsettings.json
