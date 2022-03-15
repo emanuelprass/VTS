@@ -14,6 +14,7 @@ using Newtonsoft.Json.Serialization;
 using SceletonAPI.Application.Infrastructures;
 using SceletonAPI.Application.Infrastructures.AutoMapper;
 using SceletonAPI.Application.Interfaces;
+using SceletonAPI.Application.Interfaces.Authorization;
 using SceletonAPI.Application.Misc;
 using SceletonAPI.Application.UseCases.RegisterUser;
 using SceletonAPI.Infrastructure.Authorization;
@@ -57,8 +58,13 @@ namespace SceletonAPI
             services.AddDbContext<IDBContext, DBContext>(options =>
                options
                .UseLazyLoadingProxies()
-               .UseSqlServer(Configuration.GetConnectionString("WADatabase")));
+               .UseSqlServer(Configuration.GetConnectionString("VTSDatabase")));
             // mapper
+            services.AddDbContext<IVTSDBContext, VTSDbContext>(options =>
+                options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(Configuration.GetConnectionString("VTSDatabase")));
+            
             var mappingConfig = AuthmapperFunction(services);
             services.AddSingleton(mappingConfig.CreateMapper());
             services
@@ -89,6 +95,7 @@ namespace SceletonAPI
                 });
             // services.AddSingleton<IEmailService, EmailService> ();
             services.AddScoped<IUploader, ManagedDiskUploader>();
+            services.AddScoped<IAuthUser, AuthUser>();
 
             services.AddCors(o => o.AddPolicy("AllowAll", builder =>
             {
