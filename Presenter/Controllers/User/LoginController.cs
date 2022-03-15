@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace SceletonAPI.Presenter.Controllers.User
 {
-    [Route("api/login")]
+    [Route("api/v1/login")]
     [ApiController]
     public class LoginController : ControllerBase
     {

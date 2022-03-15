@@ -24,6 +24,8 @@ using SceletonAPI.Infrastructure.Persistences;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace SceletonAPI
@@ -46,6 +48,8 @@ namespace SceletonAPI
                options
                .UseLazyLoadingProxies()
                .UseSqlServer(Configuration.GetConnectionString("MasterData")));
+
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -60,6 +64,8 @@ namespace SceletonAPI
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
+
+            app.UseAuthentication();
         }
     }
 }
