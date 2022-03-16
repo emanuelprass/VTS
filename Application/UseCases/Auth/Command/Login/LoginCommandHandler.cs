@@ -47,14 +47,13 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
 
                 return response;
             }
-            Console.WriteLine("d");
             Task<LoginDtoData> user = null;
             _context.loadStoredProcedureBuilder("SP_Select_UserMasterData")
                 .AddParam("Email", request.Data.Email)
                 .AddParam("Password", request.Data.Password)
                 .Exec(r =>
                 {
-                    user = MapContact(r);
+                    user = MapUser(r);
                 });
 
             if (user.Result == null)
@@ -76,7 +75,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
             return response;
         }
 
-        public static async Task<LoginDtoData> MapContact(DbDataReader dataReader)
+        public static async Task<LoginDtoData> MapUser(DbDataReader dataReader)
         {
             if (await dataReader.ReadAsync() && dataReader.HasRows)
             {
@@ -98,7 +97,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
 
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, userInfo.Id.ToString()),
-                        new Claim(JwtRegisteredClaimNames.Email, userInfo.Name),
+                        new Claim("name", userInfo.Name),
                         new Claim("company", userInfo.Company),
                         new Claim("role", userInfo.Role),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
