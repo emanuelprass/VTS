@@ -5,11 +5,13 @@ using SceletonAPI.Application.Interfaces.Authorization;
 using SceletonAPI.Application.Misc;
 using SceletonAPI.Application.UseCases.MasterData.Command.UserCreateUpdate;
 using SceletonAPI.Application.UseCases.MasterData.Command.UserDelete;
+using SceletonAPI.Application.UseCases.MasterData.Queries.UserList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using SceletonAPI.Application.Models.Query;
 
 namespace SceletonAPI.Presenter.Controllers.MasterData.User
 {
@@ -47,6 +49,24 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.User
             Payload.Data.UpdatedBy = _authUser.name;
             var response = await Mediator.Send(Payload);
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("/usermasterdata/list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<UserListDto>> List(
+            [FromQuery(Name = "page")] int? _Page,
+            [FromQuery(Name = "limit")] int? _Limit
+            )
+        {
+            //Payload.Data.UpdatedBy = _authUser.name;
+            var Query = new UserListQuery
+            {
+                Page = _Page,
+                Limit = _Limit,
+                UpdatedBy = _authUser.name
+            };
+            return Ok(await Mediator.Send(Query));
         }
     }
 }
