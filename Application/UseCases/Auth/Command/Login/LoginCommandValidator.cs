@@ -6,7 +6,8 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
     {
         public LoginCommandValidator()
         {
-
+            RuleFor(login => login.Data.Email).NotEmpty();
+            RuleFor(login => login.Data.Password).NotEmpty();
         }
     }
 }

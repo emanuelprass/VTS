@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using SceletonAPI.Application.Interfaces;
 using SceletonAPI.Application.Interfaces.Authorization;
 using SceletonAPI.Application.Misc;
-using SceletonAPI.Application.UseCases.MasterData.Command.UserCreateUpdate;
-using SceletonAPI.Application.UseCases.MasterData.Command.UserDelete;
-using SceletonAPI.Application.UseCases.MasterData.Queries.UserList;
+using SceletonAPI.Application.UseCases.MasterData.Command.DriverCreateUpdate;
+using SceletonAPI.Application.UseCases.MasterData.Command.DriverDelete;
+using SceletonAPI.Application.UseCases.MasterData.Queries.DriverList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +13,18 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using SceletonAPI.Application.Models.Query;
 
-namespace SceletonAPI.Presenter.Controllers.MasterData.User
+namespace SceletonAPI.Presenter.Controllers.MasterData.Driver
 {
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
-    [Route("/usermasterdata")]
-    public class UserController : BaseController
+    [Route("/drivermasterdata")]
+    public class DriverController : BaseController
     {
         private readonly IAuthUser _authUser;
         private readonly IUploader _logging;
         private readonly Utils _utils;
 
-        public UserController(IAuthUser authUser, IUploader logging, Utils utils)
+        public DriverController(IAuthUser authUser, IUploader logging, Utils utils)
         {
             _authUser = authUser;
             _logging = logging;
@@ -32,9 +32,9 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.User
 
         }
         [HttpPost]
-        [Route("/usermasterdata/createupdate")]
+        [Route("/drivermasterdata/createupdate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<UserCreateUpdateDto>> CreateUpdate([FromBody] UserCreateUpdateCommand Payload)
+        public async Task<ActionResult<DriverCreateUpdateDto>> CreateUpdate([FromBody] DriverCreateUpdateCommand Payload)
         {
             Payload.Data.UpdatedBy = _authUser.name;
             var response = await Mediator.Send(Payload);
@@ -42,9 +42,9 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.User
         }
 
         [HttpPost]
-        [Route("/usermasterdata/delete")]
+        [Route("/drivermasterdata/delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<UserDeleteDto>> Delete([FromBody] UserDeleteCommand Payload)
+        public async Task<ActionResult<DriverDeleteDto>> Delete([FromBody] DriverDeleteCommand Payload)
         {
             Payload.Data.UpdatedBy = _authUser.name;
             var response = await Mediator.Send(Payload);
@@ -52,20 +52,17 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.User
         }
 
         [HttpGet]
-        [Route("/usermasterdata/list")]
+        [Route("/drivermasterdata/list")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<UserListDto>> List(
+        public async Task<ActionResult<DriverListDto>> List(
             [FromQuery(Name = "page")] int? _Page,
-            [FromQuery(Name = "limit")] int? _Limit,
-            [FromQuery(Name = "role")] string _Role
+            [FromQuery(Name = "limit")] int? _Limit
             )
         {
-            //Payload.Data.UpdatedBy = _authUser.name;
-            var Query = new UserListQuery
+            var Query = new DriverListQuery
             {
                 Page = _Page,
                 Limit = _Limit,
-                Role = _Role,
                 UpdatedBy = _authUser.name
             };
             return Ok(await Mediator.Send(Query));

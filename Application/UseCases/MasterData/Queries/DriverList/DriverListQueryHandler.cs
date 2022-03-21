@@ -10,54 +10,55 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Data.Common;
 
-namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
+namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
 {
-    public class UserListQueryHandler : IRequestHandler<UserListQuery, UserListDto>
+    public class DriverListQueryHandler : IRequestHandler<DriverListQuery, DriverListDto>
     {
         private readonly IVTSDBContext _context;
         private readonly IMapper _mapper;
 
-        public UserListQueryHandler(IVTSDBContext context, IMapper mapper)
+        public DriverListQueryHandler(IVTSDBContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<UserListDto> Handle(UserListQuery request, CancellationToken cancellationToken)
+        public async Task<DriverListDto> Handle(DriverListQuery request, CancellationToken cancellationToken)
         {
-            var response = new UserListDto();
+            var response = new DriverListDto();
 
-            List<UserListDtoData> data = new();
-            UserListDtoMeta meta = null;
-            
-            _context.loadStoredProcedureBuilder("SP_List_UserMasterData")
+            List<DriverListDtoData> data = null;
+            DriverListDtoMeta meta = null;
+
+            _context.loadStoredProcedureBuilder("SP_List_DriverMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
-                .AddParam("Role", request.Role)
-                .Exec(r => data = r.ToList<UserListDtoData>());
+                .Exec(r => data = r.ToList<DriverListDtoData>());
 
-            _context.loadStoredProcedureBuilder("SP_List_UserMasterData")
+            _context.loadStoredProcedureBuilder("SP_List_DriverMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
-                .AddParam("Role", request.Role)
                 .Exec(r =>
                 {
-                    meta = r.First<UserListDtoMeta>();
+                    meta = r.First<DriverListDtoMeta>();
                 });
 
             if (!data.Any())
             {
                 response.Success = false;
-                response.Message = "User tidak ditemukan";
+                response.Message = "Driver tidak ditemukan";
+
+                return response;
             }
 
             response.Data = data;
             response.Meta = meta;
             response.Meta.Page = request.Page > 0 ? request.Page : 1;
             response.Meta.Limit = request.Limit > 0 ? request.Limit : meta.TotalData;
-
+ 
             response.Success = true;
-            response.Message = "Daftar user berhasil ditemukan";
+            response.Message = "Daftar driver berhasil ditemukan";
+
             return response;
         }
     }

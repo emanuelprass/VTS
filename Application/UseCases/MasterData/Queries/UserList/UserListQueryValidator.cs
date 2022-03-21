@@ -10,6 +10,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
     {
         public UserListQueryValidator()
         {
+			RuleFor(user => user.Role).NotEmpty();
         }
     }
 }

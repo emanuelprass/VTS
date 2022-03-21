@@ -19,14 +19,14 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.IO; 
 
-namespace SceletonAPI.Application.UseCases.Auth.Command.Login
+namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginDto>
+    public class DriverLoginCommandHandler : IRequestHandler<DriverLoginCommand, DriverLoginDto>
     {
         private readonly IVTSDBContext _context;
         private readonly IMapper _mapper;
 
-        public LoginCommandHandler(IVTSDBContext context, IMapper mapper)
+        public DriverLoginCommandHandler(IVTSDBContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -34,64 +34,62 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
 
         private IConfiguration _config;
 
-        public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<DriverLoginDto> Handle(DriverLoginCommand request, CancellationToken cancellationToken)
         {
 
-            var response = new LoginDto();
+            var response = new DriverLoginDto();
 
-            Task<LoginDtoData> user = null;
-            _context.loadStoredProcedureBuilder("SP_Select_UserMasterData")
-                .AddParam("Email", request.Data.Email)
+            Task<DriverLoginDtoData> driver = null;
+            _context.loadStoredProcedureBuilder("SP_Select_DriverMasterData")
+                .AddParam("Phone", request.Data.Phone)
                 .AddParam("Password", request.Data.Password)
                 .Exec(r =>
                 {
-                    user = MapUser(r);
+                    driver = MapDriver(r);
                 });
 
-            if (user.Result == null)
+            if (driver.Result == null)
             {
                 response.Success = false;
-                response.Message = "User tidak ditemukan";
+                response.Message = "Driver tidak ditemukan";
 
                 return response;
             }
 
-            var tokenString = GenerateJSONWebToken(user.Result);
+            var tokenString = GenerateJSONWebToken(driver.Result);
             response.TokenId = tokenString;
             response.TokenType = "Bearer";
 
-            response.Data = user.Result;
+            response.Data = driver.Result;
             response.Success = true;
             response.Message = "Login berhasil";
 
             return response;
         }
 
-        public static async Task<LoginDtoData> MapUser(DbDataReader dataReader)
+        public static async Task<DriverLoginDtoData> MapDriver(DbDataReader dataReader)
         {
             if (await dataReader.ReadAsync() && dataReader.HasRows)
             {
-                LoginDtoData user = new();
-                user.Id = dataReader.GetInt32(dataReader.GetOrdinal("ID"));
-                user.Name = dataReader.GetString(dataReader.GetOrdinal("FullName"));
-                user.Company = dataReader.GetString(dataReader.GetOrdinal("Company"));
-                user.Role = dataReader.GetString(dataReader.GetOrdinal("Role"));
-                return user;
+                DriverLoginDtoData driver = new();
+                driver.Id = dataReader.GetInt32(dataReader.GetOrdinal("ID"));
+                driver.Name = dataReader.GetString(dataReader.GetOrdinal("FullName"));
+                driver.VendorName = dataReader.GetString(dataReader.GetOrdinal("VendorName"));
+                return driver;
             }
             return null;
         }
 
 
-        private string GenerateJSONWebToken(LoginDtoData userInfo)
+        private string GenerateJSONWebToken(DriverLoginDtoData driverInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("TemporaryHardCodedSecretKey"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                        new Claim(JwtRegisteredClaimNames.Sub, userInfo.Id.ToString()),
-                        new Claim("name", userInfo.Name),
-                        new Claim("company", userInfo.Company),
-                        new Claim("role", userInfo.Role),
+                        new Claim(JwtRegisteredClaimNames.Sub, driverInfo.Id.ToString()),
+                        new Claim("name", driverInfo.Name),
+                        new Claim("vendor", driverInfo.VendorName),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
                         //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };

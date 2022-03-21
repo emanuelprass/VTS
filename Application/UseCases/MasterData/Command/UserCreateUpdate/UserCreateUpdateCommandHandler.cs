@@ -45,6 +45,14 @@ namespace SFIDWebAPI.Application.UseCases.User.Otoleap.Command.UserCreateUpdate
                 .AddParam("UpdatedBy", request.Data.UpdatedBy)
                 .Exec(r => spinsertUser = r.ToList<MasterDataUser>());
 
+			if (spinsertUser.Any())
+			{
+				response.Success = false;
+				response.Message = "Alamat email yang anda masukkan sudah terdaftar";
+            
+				return response;
+			}
+			
             response.Success = true;
             response.Message = "User berhasil dibuat atau diupdate";
             

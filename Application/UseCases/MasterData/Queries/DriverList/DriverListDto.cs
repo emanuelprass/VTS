@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
+namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
 {
-    public class UserListDto : BaseDto
+    public class DriverListDto : BaseDto
     {
-        public UserListDtoMeta Meta { set; get; }
-        public List<UserListDtoData> Data { set; get; }
+        public DriverListDtoMeta Meta { set; get; }
+        public List<DriverListDtoData> Data { set; get; }
     }
 
-    public class UserListDtoMeta
+    public class DriverListDtoMeta
     {
         public int? Page { get; set; }
         public int? Limit { get; set; }
@@ -20,14 +20,11 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
         public int TotalPage { get; set; }
     }
 
-    public class UserListDtoData
+    public class DriverListDtoData
     {
         public int Id { get; set; }
         public string FullName { set; get; }
-        public string Email { set; get; }
-        public string Company { set; get; }
-        public string Role { set; get; }
-        public short Status { set; get; }
+        public string Phone { set; get; }
         public string CreatedBy { set; get; }
         public DateTime CreatedTime { set; get; }
         public string UpdatedBy { set; get; }
