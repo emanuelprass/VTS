@@ -50,7 +50,7 @@ namespace SceletonAPI.Infrastructure.Authorization
             var token = authHeader.Replace("Bearer", "").Trim();
 
             var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiY29tcGFueSI6Ik1NS1NJIiwicm9sZSI6IkFkbWluIiwiZXhwaXJlZCI6MTUxNjIzOTAyMiwiaWF0IjoxNTE2MjM5MDIyfQ.gwHLxeSELj9SlH50-SD-JeiHkXkI0abmol5LFnBrze8");
+            var jsonToken = handler.ReadToken(token);
             var tokenS = jsonToken as JwtSecurityToken;
 
             //byte[] symmetricKey = Convert.FromBase64String("db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==");
@@ -69,7 +69,7 @@ namespace SceletonAPI.Infrastructure.Authorization
             authUser.name = tokenS.Claims.First(claim => claim.Type == "name").Value;
             authUser.company = tokenS.Claims.First(claim => claim.Type == "company").Value;
             authUser.role = tokenS.Claims.First(claim => claim.Type == "role").Value;
-            authUser.expired = Convert.ToInt32(tokenS.Claims.First(claim => claim.Type == "expired").Value);
+            authUser.expired = Convert.ToInt32(tokenS.Claims.First(claim => claim.Type == "exp").Value);
             authUser.token = token;
 
             return _next.Invoke(context);

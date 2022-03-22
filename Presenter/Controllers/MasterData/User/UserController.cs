@@ -59,8 +59,7 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.User
             [FromQuery(Name = "limit")] int? _Limit,
             [FromQuery(Name = "role")] string _Role
             )
-        {
-            //Payload.Data.UpdatedBy = _authUser.name;
+        {            
             var Query = new UserListQuery
             {
                 Page = _Page,
