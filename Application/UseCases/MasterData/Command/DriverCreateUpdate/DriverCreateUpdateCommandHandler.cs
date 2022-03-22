@@ -34,7 +34,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.DriverCreateUpdate
 
             List<MasterDataDriver> spinsertDriver = null;
             _context.loadStoredProcedureBuilder("SP_InsertUpdate_DriverMasterData")
-				.AddParam("ID", request.Data.Id)
+				.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
                 .AddParam("FullName", request.Data.FullName)
 				.AddParam("Phone", request.Data.Phone)
                 .AddParam("VendorName", request.Data.VendorName)

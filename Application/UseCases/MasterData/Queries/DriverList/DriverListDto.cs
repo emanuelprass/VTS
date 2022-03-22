@@ -25,6 +25,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
         public int Id { get; set; }
         public string FullName { set; get; }
         public string Phone { set; get; }
+        public string VendorName { set; get; }
         public string CreatedBy { set; get; }
         public DateTime CreatedTime { set; get; }
         public string UpdatedBy { set; get; }
