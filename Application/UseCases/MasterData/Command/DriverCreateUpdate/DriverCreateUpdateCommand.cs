@@ -14,11 +14,11 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.DriverCreateUpdate
     public class DriverCreateUpdateCommandData
     {
         public int? Id { get; set; }
-        public string FullName { set; get; }
-        public string Phone { set; get; }
-        public string VendorName { set; get; }
-        public string Password { set; get; }
-        public string ConfPassword { set; get; }
+        public string? FullName { set; get; }
+        public string? Phone { set; get; }
+        public long? VendorId { set; get; }
+        public string? Password { set; get; }
+        public string? ConfPassword { set; get; }
         public string UpdatedBy { set; get; }
 
     }

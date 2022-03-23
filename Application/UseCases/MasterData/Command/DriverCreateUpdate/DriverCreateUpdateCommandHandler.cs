@@ -37,7 +37,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.DriverCreateUpdate
 				.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
                 .AddParam("FullName", request.Data.FullName)
 				.AddParam("Phone", request.Data.Phone)
-                .AddParam("VendorName", request.Data.VendorName)
+                .AddParam("VendorID", request.Data.VendorId)
                 .AddParam("Password", request.Data.Password)
                 .AddParam("ConfPassword", request.Data.ConfPassword)
                 .AddParam("UpdatedBy", request.Data.UpdatedBy)
