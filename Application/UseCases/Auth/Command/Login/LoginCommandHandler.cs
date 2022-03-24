@@ -98,7 +98,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(120),
+                expires: DateTime.Now.AddHours(24),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
