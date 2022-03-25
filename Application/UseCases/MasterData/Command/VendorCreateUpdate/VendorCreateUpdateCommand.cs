@@ -14,7 +14,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.VendorCreateUpdate
 		public string lfa1_name2 { set; get; }
 		public string lfa1_name3 { set; get; }
 		public string lfa1_land1 { set; get; }
-		public string lda1_ort01 { set; get; }	
+		public string lfa1_ort01 { set; get; }	
 		public string lfa1_pstlz { set; get; }
 		public string lfa1_regio { set; get; }
 		public string lfa1_sortl { set; get;}

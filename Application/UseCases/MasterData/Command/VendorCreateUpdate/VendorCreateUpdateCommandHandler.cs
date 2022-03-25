@@ -36,7 +36,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.VendorCreateUpdate
 				.AddParam("Name2", i.lfa1_name2)
 				.AddParam("Grade", i.lfa1_name3)
 				.AddParam("Country", i.lfa1_land1)
-				.AddParam("City", i.lda1_ort01)
+				.AddParam("City", i.lfa1_ort01)
 				.AddParam("PostalCode", i.lfa1_pstlz)
 				.AddParam("Region", i.lfa1_regio)
 				.AddParam("Street", i.lfa1_stras)
