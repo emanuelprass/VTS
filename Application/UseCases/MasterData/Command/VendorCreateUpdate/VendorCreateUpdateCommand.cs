@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SceletonAPI.Application.UseCases.MasterData.Command.UserCreateUpdate;
 using System.Collections.Generic;
 
 namespace SceletonAPI.Application.UseCases.MasterData.Command.VendorCreateUpdate

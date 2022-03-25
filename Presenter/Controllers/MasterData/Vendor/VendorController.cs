@@ -16,31 +16,30 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.Vendor
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("/vendor")]
-    public class UserController : BaseController
+    public class VendorController : BaseController
     {
         private readonly IAuthUser _authUser;
         private readonly IUploader _logging;
         private readonly Utils _utils;
 
-        public UserController(IAuthUser authUser, IUploader logging, Utils utils)
+        public VendorController(IAuthUser authUser, IUploader logging, Utils utils)
         {
             _authUser = authUser;
             _logging = logging;
             _utils = utils;
 
         }
+
         [HttpPost]
         [Route("/vendor/createupdate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<VendorCreateUpdateDto>> CreateUpdate([FromBody] List<CreateDto> Payload)
         {
-            
-            // var response = new VendorCreateUpdateDto();
 
             foreach (var i in Payload)
             {                
-                i.created_by = _authUser.name;
-                i.updated_by = _authUser.name;
+                i.created_by = "SAP_ADMIN";
+                i.updated_by = "SAP_ADMIN";
             }
 
             var response = await Mediator.Send(new VendorCreateUpdateCommand { data = Payload });
@@ -72,6 +71,8 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.Vendor
             var response = await Mediator.Send(Payload);
             return Ok(response);
         }
+
+        
 
     }
 }
