@@ -13,13 +13,12 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
     }
     public class PricingCreateUpdateCommandData
     {
-        public int? Id { get; set; }
-        public string? Region { set; get; }
-        public int? DestinationId { set; get; }
-        public string? VendorId { set; get; }
-		public int? FleetId { set; get; }
-		public long? Price { set; get; }
-		public int? TransportModeId { set; get; }
+        public string Region { set; get; }
+        public int DestinationCode { set; get; }
+        public string VendorCode { set; get; }
+		public string ModelName { set; get; }
+		public long Price { set; get; }
+		public string DeliveryMode { set; get; }
         public string UpdatedBy { set; get; }
     }
 }

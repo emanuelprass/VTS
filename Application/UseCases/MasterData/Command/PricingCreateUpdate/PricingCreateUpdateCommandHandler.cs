@@ -34,13 +34,12 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
 
             List<MasterDataPricing> spinsertPricing = null;
             _context.loadStoredProcedureBuilder("SP_InsertUpdate_PricingMasterData")
-				.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
                 .AddParam("Region", request.Data.Region)
-				.AddParam("DestinationID", request.Data.DestinationId)
-                .AddParam("VendorID", request.Data.VendorId)
-                .AddParam("FleetID", request.Data.FleetId)
+				.AddParam("DestinationCode", request.Data.DestinationCode)
+                .AddParam("VendorCode", request.Data.VendorCode)
+                .AddParam("ModelName", request.Data.ModelName)
                 .AddParam("Price", request.Data.Price)
-                .AddParam("TransportModeID", request.Data.TransportModeId)
+                .AddParam("DeliveryMode", request.Data.DeliveryMode)
                 .AddParam("UpdatedBy", request.Data.UpdatedBy)
                 .Exec(r => spinsertPricing = r.ToList<MasterDataPricing>());
 			

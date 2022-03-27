@@ -9,6 +9,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
     public class PricingListDto : BaseDto
     {
         public PricingListDtoMeta Meta { set; get; }
+		public List<ModelKendaraan> Model { set; get; }
         public List<PricingListDtoData> Data { set; get; }
     }
 
@@ -19,18 +20,23 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
         public int TotalData { get; set; }
         public int TotalPage { get; set; }
     }
+	
+	public class ModelKendaraan
+	{
+		public string ModelName { get; set; }
+	}
 
     public class PricingListDtoData
     {
         public int Id { get; set; }
         public string Region { set; get; }
-        public long DestinationCode { set; get; }
+        public string DestinationCode { set; get; }
         public string DestinationName { set; get; }
         public string VendorName { set; get; }
         public string VendorGrade { set; get; }
-		public int FleetId { set; get; }
-		public long Price { set; get; }
-		public int TransportModeId { set; get; }
+		public long Price { get; set; }
+		public string ModelName { get; set; }
+		public string DeliveryMode { set; get; }
         public string CreatedBy { set; get; }
         public DateTime CreatedTime { set; get; }
         public string UpdatedBy { set; get; }
