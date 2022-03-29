@@ -34,10 +34,14 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.Pricing
         [HttpPost]
         [Route("/pricingmasterdata/createupdate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PricingCreateUpdateDto>> CreateUpdate([FromBody] PricingCreateUpdateCommand Payload)
+        public async Task<ActionResult<PricingCreateUpdateDto>> CreateUpdate([FromBody] List<CreateDto> Payload)
         {
-            Payload.Data.UpdatedBy = _authUser.name;
-            var response = await Mediator.Send(Payload);
+            
+            foreach (var i in Payload)
+            {                
+                i.UpdatedBy = "SAP_ADMIN";
+            }
+            var response = await Mediator.Send(new PricingCreateUpdateCommand { Data = Payload });
             return Ok(response);
         }
 

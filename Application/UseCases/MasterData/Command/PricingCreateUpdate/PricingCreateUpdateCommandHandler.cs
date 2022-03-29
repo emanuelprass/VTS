@@ -32,17 +32,19 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
         {
             var response = new PricingCreateUpdateDto();
 
-            List<MasterDataPricing> spinsertPricing = null;
-            _context.loadStoredProcedureBuilder("SP_InsertUpdate_PricingMasterData")
-                .AddParam("Region", request.Data.Region)
-				.AddParam("DestinationCode", request.Data.DestinationCode)
-                .AddParam("VendorCode", request.Data.VendorCode)
-                .AddParam("ModelName", request.Data.ModelName)
-                .AddParam("Price", request.Data.Price)
-                .AddParam("DeliveryMode", request.Data.DeliveryMode)
-                .AddParam("UpdatedBy", request.Data.UpdatedBy)
-                .Exec(r => spinsertPricing = r.ToList<MasterDataPricing>());
-			
+            foreach(var i in request.Data)
+            {
+                List<MasterDataPricing> spinsertPricing = null;
+                _context.loadStoredProcedureBuilder("SP_InsertUpdate_PricingMasterData")
+                    .AddParam("Region", i.Region)
+                    .AddParam("DestinationCode", i.DestinationCode)
+                    .AddParam("VendorCode", i.VendorCode)
+                    .AddParam("ModelName", i.CarModel)
+                    .AddParam("Price", i.Price)
+                    .AddParam("DeliveryMode", i.DeliveryMode)
+                    .AddParam("UpdatedBy", i.UpdatedBy)
+                    .Exec(r => spinsertPricing = r.ToList<MasterDataPricing>());
+            }
             response.Success = true;
             response.Message = "Pricing berhasil dibuat atau diupdate";
             

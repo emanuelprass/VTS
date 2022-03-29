@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdate
 {
     
-    public class PricingCreateUpdateCommandValidator : AbstractValidator<PricingCreateUpdateCommand>
+    public class PricingCreateUpdateCommandValidator : AbstractValidator<CreateDto>
     {
         public PricingCreateUpdateCommandValidator()
         {
-            RuleFor(pricing => pricing.Data.Region).NotEmpty();
-            RuleFor(pricing => pricing.Data.DestinationCode).NotEmpty();
-            RuleFor(pricing => pricing.Data.VendorCode).NotEmpty();
-            RuleFor(pricing => pricing.Data.ModelName).NotEmpty();
-            RuleFor(pricing => pricing.Data.Price).NotEmpty();
-            RuleFor(pricing => pricing.Data.DeliveryMode).NotEmpty();
+            RuleFor(pricing => pricing.Region).NotEmpty();
+            RuleFor(pricing => pricing.DestinationCode).NotEmpty();
+            RuleFor(pricing => pricing.VendorCode).NotEmpty();
+            // RuleFor(pricing => pricing.ModelName).NotEmpty();
+            RuleFor(pricing => pricing.Price).NotEmpty();
+            RuleFor(pricing => pricing.DeliveryMode).NotEmpty();
         }
     }
 }
