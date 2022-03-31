@@ -31,10 +31,10 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
         public async Task<PricingCreateUpdateDto> Handle(PricingCreateUpdateCommand request, CancellationToken cancellationToken)
         {
             var response = new PricingCreateUpdateDto();
-
+			List<MasterDataPricing> spinsertPricing = null;
+			
             foreach(var i in request.Data)
             {
-                List<MasterDataPricing> spinsertPricing = null;
                 _context.loadStoredProcedureBuilder("SP_InsertUpdate_PricingMasterData")
                     .AddParam("Region", i.Region)
                     .AddParam("DestinationCode", i.DestinationCode)
@@ -44,6 +44,14 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
                     .AddParam("DeliveryMode", i.DeliveryMode)
                     .AddParam("UpdatedBy", i.UpdatedBy)
                     .Exec(r => spinsertPricing = r.ToList<MasterDataPricing>());
+            }
+
+			if (spinsertPricing.Any())
+            {
+                response.Success = false;
+                response.Message = "Car Model atau Delivery Mode tidak ditemukan";
+
+                return response;
             }
             response.Success = true;
             response.Message = "Pricing berhasil dibuat atau diupdate";

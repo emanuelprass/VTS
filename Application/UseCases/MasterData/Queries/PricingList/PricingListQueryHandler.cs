@@ -36,9 +36,8 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
                 .AddParam("Limit", request.Limit)
                 .Exec(r => data = r.ToList<PricingListDtoData>());
 				
-			_context.loadStoredProcedureBuilder("sp_Pricing_GetModelName")
-                .AddParam("Page", request.Page != null ? request.Page : 0)
-                .AddParam("Limit", request.Limit)
+			_context.loadStoredProcedureBuilder("SP_List_PricingMasterData")
+                .AddParam("Distinct", "ModelName")
                 .Exec(r => model = r.ToList<ModelKendaraan>());	
 
             _context.loadStoredProcedureBuilder("SP_List_PricingMasterData")
