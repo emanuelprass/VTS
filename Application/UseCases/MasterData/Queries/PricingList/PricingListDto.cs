@@ -34,12 +34,17 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
         public string DestinationName { set; get; }
         public string VendorName { set; get; }
         public string VendorGrade { set; get; }
-		public long Price { get; set; }
-		public string ModelName { get; set; }
+		public List<Pricing> Pricing { get; set; }
 		public string DeliveryMode { set; get; }
         public string CreatedBy { set; get; }
         public DateTime CreatedTime { set; get; }
         public string UpdatedBy { set; get; }
         public DateTime UpdatedTime { set; get; }
     }
+	
+	public class Pricing
+    {
+		public long Price { get; set; }
+		public string ModelName { get; set; }
+	}
 }

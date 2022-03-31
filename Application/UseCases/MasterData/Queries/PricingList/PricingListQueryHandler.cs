@@ -30,6 +30,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
             List<PricingListDtoData> data = null;
             PricingListDtoMeta meta = null;
 			List<ModelKendaraan> model = null;
+			List<Pricing> pricing = null;
 
             _context.loadStoredProcedureBuilder("SP_List_PricingMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
@@ -43,10 +44,9 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
             _context.loadStoredProcedureBuilder("SP_List_PricingMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
-                .Exec(r =>
-                {
-                    meta = r.First<PricingListDtoMeta>();
-                });
+                .Exec(r => meta = r.First<PricingListDtoMeta>());
+            
+            
 
             if (!data.Any())
             {
@@ -55,9 +55,20 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
 
                 return response;
             }
-
+			
             response.Data = data;
             response.Model = model;
+			
+			foreach( var value in response.Data)
+            {
+                _context.loadStoredProcedureBuilder("SP_List_PricingMasterData")
+                .AddParam("Page", request.Page != null ? request.Page : 0)
+                .AddParam("Limit", request.Limit)
+                .AddParam("ID", value.Id)
+                .Exec(r => pricing = r.ToList<Pricing>());
+                value.Pricing = pricing;
+            }
+			
             response.Meta = meta;
             response.Meta.Page = request.Page > 0 ? request.Page : 1;
             response.Meta.Limit = request.Limit > 0 ? request.Limit : meta.TotalData;
