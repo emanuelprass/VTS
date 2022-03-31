@@ -45,13 +45,17 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
                     .AddParam("UpdatedBy", i.UpdatedBy)
                     .Exec(r => spinsertPricing = r.ToList<MasterDataPricing>());
             }
-
+			
 			if (spinsertPricing.Any())
             {
-                response.Success = false;
-                response.Message = "Car Model atau Delivery Mode tidak ditemukan";
+				foreach (var value in spinsertPricing)
+				{
+					response.Success = false;
+					response.Message = value.Region;
 
-                return response;
+					return response;
+				}
+			
             }
             response.Success = true;
             response.Message = "Pricing berhasil dibuat atau diupdate";
