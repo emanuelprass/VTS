@@ -26,7 +26,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DestinationList
 
             List<DestinationListDtoData> Destinations = null;
             _context.loadStoredProcedureBuilder("sp_List_DestinationMasterData")
-                .AddParam("Page", request.Page != null ? request.Page : 0)
+                .AddParam("Page", request.Page)
                 .AddParam("Limit", request.Limit)
                 .Exec(r => Destinations = r.ToList<DestinationListDtoData>());
 
