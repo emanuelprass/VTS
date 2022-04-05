@@ -50,7 +50,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
 
             if (driver.Result == null)
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "Driver tidak ditemukan";
 
                 return response;

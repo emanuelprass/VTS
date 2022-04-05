@@ -47,10 +47,13 @@ namespace SFIDWebAPI.Application.UseCases.User.Otoleap.Command.UserCreateUpdate
 
 			if (spinsertUser.Any())
 			{
-				response.Success = false;
-				response.Message = "Alamat email yang anda masukkan sudah terdaftar";
+				foreach (var result in spinsertUser)
+				{
+					response.Success = true;
+					response.Message = result.Message;
             
-				return response;
+					return response;
+				}
 			}
 			
             response.Success = true;

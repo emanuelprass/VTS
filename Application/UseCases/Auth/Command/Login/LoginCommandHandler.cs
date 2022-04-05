@@ -50,7 +50,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
 
             if (user.Result == null)
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "User tidak ditemukan";
 
                 return response;

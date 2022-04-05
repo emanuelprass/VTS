@@ -32,7 +32,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DestinationList
 
             if (!Destinations.Any())
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "Destination tidak ditemukan";
 
                 return response;

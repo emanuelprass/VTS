@@ -47,7 +47,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
 
             if (!data.Any())
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "User tidak ditemukan";
             }
 

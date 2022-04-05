@@ -45,7 +45,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
 
             if (!data.Any())
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "Driver tidak ditemukan";
 
                 return response;

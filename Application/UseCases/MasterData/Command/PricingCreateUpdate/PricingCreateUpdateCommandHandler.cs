@@ -48,10 +48,10 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
 			
 			if (spinsertPricing.Any())
             {
-				foreach (var value in spinsertPricing)
+				foreach (var result in spinsertPricing)
 				{
-					response.Success = false;
-					response.Message = value.Region;
+					response.Success = true;
+					response.Message = result.Message;
 
 					return response;
 				}

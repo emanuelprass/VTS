@@ -41,7 +41,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
 			
 			if (!data.Any())
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "Pricing tidak ditemukan";
 
                 return response;

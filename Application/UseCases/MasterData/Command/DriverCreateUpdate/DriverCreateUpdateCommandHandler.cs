@@ -45,10 +45,13 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.DriverCreateUpdate
 
 			if (spinsertDriver.Any())
 			{
-				response.Success = false;
-				response.Message = "Nomor Telepon yang anda masukkan sudah terdaftar";
-            
-				return response;
+				foreach (var result in spinsertDriver)
+				{
+					response.Success = true;
+					response.Message = result.Message;
+					
+					return response;
+				}
 			}
 			
             response.Success = true;

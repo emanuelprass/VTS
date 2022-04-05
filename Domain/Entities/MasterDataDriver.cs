@@ -19,5 +19,6 @@ namespace SceletonAPI.Domain.Entities
         public DateTime CreatedTime { set; get; }
         public string LastUpdatedBy { set; get; }
         public DateTime LastUpdatedTime { set; get; }
+		public string Message { set; get; }
     }
 }

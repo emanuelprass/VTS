@@ -32,7 +32,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.VendorList
 
             if (!vendors.Any())
             {
-                response.Success = false;
+                response.Success = true;
                 response.Message = "Vendor tidak ditemukan";
 
                 return response;
