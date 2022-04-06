@@ -33,7 +33,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
             var response = new AssignmentCreateUpdateDto();
 			List<MasterDataAssignment> spinsertAssignment = null;
             _context.loadStoredProcedureBuilder("SP_InsertUpdate_AssignmentMasterData")
-				.AddParam("ID", request.Data.Id)
+				.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
                 .AddParam("VendorCode", request.Data.VendorCode)
                 .AddParam("ETA", request.Data.ETA)
                 .AddParam("ShipID", request.Data.ShipID)

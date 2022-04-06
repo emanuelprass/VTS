@@ -25,6 +25,10 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.AssignmentList
         public int ID { set; get; }
         public string? VendorName { set; get; }
         public DateTime? ETA { set; get; }
-		public int? ShipID { set; get; }
+		public string? ShipName { set; get; }
+		public string? DeparturePort { set; get; }
+		public string? ArrivalPort { set; get; }
+		public DateTime? DepartureTime { set; get; }
+		public DateTime? ArrivalTime { set; get; }
 	}
 }
