@@ -24,6 +24,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.VendorCreateUpdate
 
 		public async Task<VendorCreateUpdateDto> Handle(VendorCreateUpdateCommand request, CancellationToken cancellationToken)
 		{
+			// var testing
 			var response = new VendorCreateUpdateDto();
 			foreach(var i in request.data)
             {
