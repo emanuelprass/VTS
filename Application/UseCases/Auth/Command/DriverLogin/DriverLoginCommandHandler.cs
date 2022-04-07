@@ -55,6 +55,14 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
 
                 return response;
             }
+			
+			if (driver.Result.Id == 0)
+            {
+                response.Success = true;
+                response.Message = driver.Result.Status;
+
+                return response;
+            }
 
             var tokenString = GenerateJSONWebToken(driver.Result);
             response.TokenId = tokenString;
@@ -75,6 +83,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
                 driver.Id = dataReader.GetInt32(dataReader.GetOrdinal("ID"));
                 driver.Name = dataReader.GetString(dataReader.GetOrdinal("FullName"));
                 driver.VendorName = dataReader.GetString(dataReader.GetOrdinal("VendorName"));
+				driver.Status = dataReader.GetString(dataReader.GetOrdinal("Status"));
                 return driver;
             }
             return null;

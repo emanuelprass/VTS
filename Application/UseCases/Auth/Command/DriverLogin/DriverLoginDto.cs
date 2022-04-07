@@ -14,5 +14,6 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
         public int Id { get; set; }
         public string Name { set; get; }
         public string VendorName { set; get; }
+        public string Status { set; get; }
     }
 }
