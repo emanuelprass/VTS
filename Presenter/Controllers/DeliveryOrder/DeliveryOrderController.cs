@@ -4,6 +4,7 @@ using SceletonAPI.Application.Interfaces;
 using SceletonAPI.Application.Interfaces.Authorization;
 using SceletonAPI.Application.Misc;
 using SceletonAPI.Application.UseCases.MasterData.Command.DeliveryOrderCreateUpdate;
+using SceletonAPI.Application.UseCases.MasterData.Queries.DeliveryOrderList;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -43,21 +44,21 @@ namespace SceletonAPI.Presenter.Controllers.DeliveryOrder
             return Ok(response);
         }
 
-        // [HttpGet]
-        // [Route("/DeliveryOrder/list")]
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // public async Task<ActionResult<DeliveryOrderListDto>> List(
-        //     [FromQuery(Name = "page")] int? _Page,
-        //     [FromQuery(Name = "limit")] int? _Limit
-        //     )
-        // {            
-        //     var Query = new DeliveryOrderListQuery
-        //     {
-        //         Page = _Page,
-        //         Limit = _Limit                
-        //     };
-        //     return Ok(await Mediator.Send(Query));
-        // }
+        [HttpGet]
+        [Route("/deliveryorder/list")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<DeliveryOrderListDtoData>> List(
+            [FromQuery(Name = "page")] int? _Page,
+            [FromQuery(Name = "limit")] int? _Limit
+            )
+        {            
+            var Query = new DeliveryOrderListQuery
+            {
+                Page = _Page,
+                Limit = _Limit                
+            };
+            return Ok(await Mediator.Send(Query));
+        }
 
         // [HttpPost]
         // [Route("/DeliveryOrder/delete")]
