@@ -42,6 +42,11 @@ namespace SceletonAPI.Infrastructure.Authorization
                 return _next.Invoke(context);
             }
 
+            if (request.Path.ToString().StartsWith("/deliveryorder/createupdate", StringComparison.CurrentCultureIgnoreCase)) 
+            {
+                return _next.Invoke(context);
+            }
+
             string authHeader = "";
             if (context.Request.Headers.TryGetValue("Authorization", out StringValues authToken))
             {
