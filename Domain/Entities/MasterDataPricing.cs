@@ -18,6 +18,9 @@ namespace SceletonAPI.Domain.Entities
         public DateTime CreatedTime { set; get; }
         public string UpdatedBy { set; get; }
         public DateTime UpdatedTime { set; get; }
-		public string Message { set; get; }
+		public string DestinationCode { set; get; }
+		public string VendorCode { set; get; }
+		public string ModelName { set; get; }
+		public string DeliveryMode { set; get; }
     }
 }
