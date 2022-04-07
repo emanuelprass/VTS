@@ -29,5 +29,6 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.VendorList
 		public string VendorEmail { set; get; }
 		public string CreatedBy { set; get; }
 		public string UpdatedBy { set; get; }
+		public string VendorStatus { set; get; }
 	}
 }
