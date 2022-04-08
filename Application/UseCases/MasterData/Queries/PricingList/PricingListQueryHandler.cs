@@ -68,6 +68,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
 				.AddParam("Region", value.Region)
 				.AddParam("DestinationCode", value.DestinationCode)
 				.AddParam("VendorCode", value.VendorCode)
+				.AddParam("DeliveryMode", value.DeliveryMode)
 				.Exec(r => pricings = r.ToList<Pricing>());
 				value.Pricing = pricings;
 			}
