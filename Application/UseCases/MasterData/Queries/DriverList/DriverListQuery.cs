@@ -12,6 +12,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
     {
         public int? Page { set; get; }
         public int? Limit { set; get; }
-        public string UpdatedBy { set; get; }
+        public string Token { set; get; }
+        public string Company { set; get; }
     }
 }

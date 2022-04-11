@@ -29,7 +29,6 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
 
             List<UserListDtoData> data = new();
             UserListDtoMeta meta = null;
-            
             _context.loadStoredProcedureBuilder("SP_List_UserMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)

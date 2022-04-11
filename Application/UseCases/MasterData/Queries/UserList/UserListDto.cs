@@ -27,7 +27,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.UserList
         public string Email { set; get; }
         public string Company { set; get; }
         public string Role { set; get; }
-        public short Status { set; get; }
+        public string VendorName { set; get; }
         public string CreatedBy { set; get; }
         public DateTime CreatedTime { set; get; }
         public string UpdatedBy { set; get; }

@@ -55,6 +55,14 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Login
 
                 return response;
             }
+			
+			if (user.Result.Id == 0)
+            {
+                response.Success = true;
+                response.Message = user.Result.Role;
+
+                return response;
+            }
 
             var tokenString = GenerateJSONWebToken(user.Result);
             response.TokenId = tokenString;

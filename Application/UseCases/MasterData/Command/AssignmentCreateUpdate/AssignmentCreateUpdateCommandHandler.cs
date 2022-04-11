@@ -36,21 +36,24 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
 				.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
                 .AddParam("VendorCode", request.Data.VendorCode)
                 .AddParam("ETA", request.Data.ETA)
-                .AddParam("ShipID", request.Data.ShipID)
+                .AddParam("ShipName", request.Data.ShipData != null ? request.Data.ShipData.ShipName : null)
+                .AddParam("DeparturePort", request.Data.ShipData != null ? request.Data.ShipData.DeparturePort : null)
+                .AddParam("ArrivalPort", request.Data.ShipData != null ? request.Data.ShipData.ArrivalPort : null)
+				.AddParam("DepartureTime", request.Data.ShipData != null ? request.Data.ShipData.DepartureTime : null)
+                .AddParam("ArrivalTime", request.Data.ShipData != null ? request.Data.ShipData.ArrivalTime : null)
                 .AddParam("UpdatedBy", request.Data.UpdatedBy)
                 .Exec(r => spinsertAssignment = r.ToList<MasterDataAssignment>());
-				
+
 			if (spinsertAssignment.Any())
 			{
 				foreach (var result in spinsertAssignment)
 				{
 					response.Success = true;
 					response.Message = result.Message;
-            
+					
 					return response;
 				}
 			}
-			
             response.Success = true;
             response.Message = "Assignment berhasil dibuat atau diupdate";
             

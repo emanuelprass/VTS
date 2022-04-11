@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Data.Common;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
 {
@@ -26,18 +27,23 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DriverList
         public async Task<DriverListDto> Handle(DriverListQuery request, CancellationToken cancellationToken)
         {
             var response = new DriverListDto();
+			var jwtToken = new JwtSecurityToken(request.Token);
 
             List<DriverListDtoData> data = null;
             DriverListDtoMeta meta = null;
-
+	
             _context.loadStoredProcedureBuilder("SP_List_DriverMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
+				.AddParam("Company", request.Company)
+				.AddParam("Subject", jwtToken.Subject)
                 .Exec(r => data = r.ToList<DriverListDtoData>());
 
             _context.loadStoredProcedureBuilder("SP_List_DriverMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
+				.AddParam("Company", request.Company)
+				.AddParam("Subject", jwtToken.Subject)
                 .Exec(r =>
                 {
                     meta = r.First<DriverListDtoMeta>();

@@ -63,7 +63,8 @@ namespace SceletonAPI.Presenter.Controllers.MasterData.Driver
             {
                 Page = _Page,
                 Limit = _Limit,
-                UpdatedBy = _authUser.name
+				Company = _authUser.company,
+				Token = _authUser.token
             };
             return Ok(await Mediator.Send(Query));
         }

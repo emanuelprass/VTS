@@ -15,6 +15,14 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
 				RuleFor(assignment => assignment.Data.VendorCode).NotEmpty();
 				RuleFor(assignment => assignment.Data.ETA).NotEmpty();
 			});
+			
+			When(assignment => assignment.Data.ShipData != null, () => {
+				RuleFor(assignment => assignment.Data.ShipData.ShipName).NotEmpty();
+				RuleFor(assignment => assignment.Data.ShipData.DeparturePort).NotEmpty();
+				RuleFor(assignment => assignment.Data.ShipData.ArrivalPort).NotEmpty();
+				RuleFor(assignment => assignment.Data.ShipData.DepartureTime).NotEmpty();
+				RuleFor(assignment => assignment.Data.ShipData.ArrivalTime).NotEmpty();
+			});
         }
     }
 }
