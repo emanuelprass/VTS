@@ -66,7 +66,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.PricingList
 	
 	public class Pricing
     {
-		public long Price { get; set; }
+		public double Price { get; set; }
 		public string ModelName { get; set; }
 	}
 }

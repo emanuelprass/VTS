@@ -20,7 +20,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.PricingCreateUpdat
         public string VendorCode { set; get; }
         public string Vendor { set; get; }
         public string CarModel { set; get; }
-		public long Price { set; get; }
+		public double Price { set; get; }
 		public string DeliveryMode { set; get; }
         public string UpdatedBy { set; get; }
     }
