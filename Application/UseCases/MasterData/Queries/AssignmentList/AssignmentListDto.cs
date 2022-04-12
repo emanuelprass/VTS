@@ -23,12 +23,9 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.AssignmentList
     public class AssignmentListDtoData
     {
         public int ID { set; get; }
-        public string? VendorName { set; get; }
-        public DateTime? ETA { set; get; }
-		public string? ShipName { set; get; }
-		public string? DeparturePort { set; get; }
-		public string? ArrivalPort { set; get; }
-		public DateTime? DepartureTime { set; get; }
-		public DateTime? ArrivalTime { set; get; }
+        public string VendorName { set; get; }
+		public DateTime PickUpTime { set; get; }
+		public string TimeZone { set; get; }
+		public DateTime ETA { set; get; }
 	}
 }

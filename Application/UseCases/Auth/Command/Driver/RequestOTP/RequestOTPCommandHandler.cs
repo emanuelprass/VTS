@@ -61,7 +61,7 @@ namespace SceletonAPI.Application.UseCases.Auth.Command.Driver.RequestOTP
 							""UserName"": ""SAPProd"",
 							""Password"": ""P@s5w0rd.PR0d_SAP22"",
 							""TypeMessage"": ""1"",
-							""BodyMessage"": ""text:=:{MMKSI Vehicle Tracking System||text:=:" + response.Data.OTP + @"||text:=:{Admin VTS"",
+							""BodyMessage"": ""text:=:MMKSI Vehicle Tracking System||text:=:" + response.Data.OTP + @"||text:=:Admin VTS"",
 							""DestinationNo"": " + response.Data.Phone + @"
 							}";
 

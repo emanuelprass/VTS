@@ -31,6 +31,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
         public async Task<AssignmentCreateUpdateDto> Handle(AssignmentCreateUpdateCommand request, CancellationToken cancellationToken)
         {
             var response = new AssignmentCreateUpdateDto();
+            var data = new AssignmentCreateUpdateDtoData();
 			List<MasterDataAssignment> spinsertAssignment = null;
             _context.loadStoredProcedureBuilder("SP_InsertUpdate_AssignmentMasterData")
 				.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
@@ -48,12 +49,17 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
 			{
 				foreach (var result in spinsertAssignment)
 				{
+					if (result.Message != null)
+					{
 					response.Success = true;
 					response.Message = result.Message;
 					
 					return response;
+					}
+				data.Id = (Convert.ToInt32(result.ID));
 				}
 			}
+			response.Data = data;
             response.Success = true;
             response.Message = "Assignment berhasil dibuat atau diupdate";
             

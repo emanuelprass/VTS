@@ -9,6 +9,12 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
     
     public class AssignmentCreateUpdateDto : BaseDto
     {
+		public AssignmentCreateUpdateDtoData Data { set; get; }
+    }
+	
+	public class AssignmentCreateUpdateDtoData
+    {
+		public int Id { set; get; }
     }
 
 }
