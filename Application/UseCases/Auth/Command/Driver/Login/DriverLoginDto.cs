@@ -1,6 +1,6 @@
 ﻿using SceletonAPI.Application.Models.Query;
 
-namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
+namespace SceletonAPI.Application.UseCases.Auth.Command.Driver.Login
 {
     public class DriverLoginDto : BaseDto
     {

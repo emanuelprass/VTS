@@ -19,7 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.IO; 
 
-namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
+namespace SceletonAPI.Application.UseCases.Auth.Command.Driver.Login
 {
     public class DriverLoginCommandHandler : IRequestHandler<DriverLoginCommand, DriverLoginDto>
     {

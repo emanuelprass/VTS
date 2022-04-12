@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace SceletonAPI.Application.UseCases.Auth.Command.DriverLogin
+namespace SceletonAPI.Application.UseCases.Auth.Command.Driver.Login
 {
     public class DriverLoginCommandValidator : AbstractValidator<DriverLoginCommand>
     {
