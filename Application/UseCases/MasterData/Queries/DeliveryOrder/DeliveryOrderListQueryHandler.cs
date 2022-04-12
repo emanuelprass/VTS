@@ -28,6 +28,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DeliveryOrderList
             _context.loadStoredProcedureBuilder("sp_List_DeliveryOrderMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
+                .AddParam("Filter", request.Filter)
                 .Exec(r => DeliveryOrders = r.ToList<DeliveryOrderListDtoData>());
 
             if (!DeliveryOrders.Any())

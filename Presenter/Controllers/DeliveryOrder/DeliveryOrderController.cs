@@ -49,13 +49,15 @@ namespace SceletonAPI.Presenter.Controllers.DeliveryOrder
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<DeliveryOrderListDtoData>> List(
             [FromQuery(Name = "page")] int? _Page,
-            [FromQuery(Name = "limit")] int? _Limit
+            [FromQuery(Name = "limit")] int? _Limit,
+            [FromQuery(Name = "filter")] string _Filter
             )
         {            
             var Query = new DeliveryOrderListQuery
             {
                 Page = _Page,
-                Limit = _Limit                
+                Limit = _Limit,
+                Filter = _Filter
             };
             return Ok(await Mediator.Send(Query));
         }

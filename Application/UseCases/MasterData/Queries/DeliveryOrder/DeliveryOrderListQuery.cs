@@ -7,6 +7,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DeliveryOrderList
 	{
 		public int? Page { set; get; }
 		public int? Limit { set; get; }
+		public string Filter { set; get; }
 		public string UpdatedBy { set; get; }
 	}
 }
