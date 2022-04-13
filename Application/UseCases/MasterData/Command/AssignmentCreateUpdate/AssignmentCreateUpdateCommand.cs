@@ -18,6 +18,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
         public string? VendorCode { set; get; }
         public DateTime? ETA { set; get; }
 		public ShipData? ShipData { set; get; }
+		public List<Batch> Batch { set; get; }
         public string UpdatedBy { set; get; }
     }
 	
@@ -28,5 +29,13 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
 		public string? ArrivalPort { set; get; }
 		public DateTime? DepartureTime { set; get; }
 		public DateTime? ArrivalTime { set; get; }
+	}
+	
+	public class Batch
+    {
+		public int? BatchId { set; get; }
+		public string? DeliveryMode { set; get; }
+		public DateTime? PickUpTime { set; get; }
+		public string? Timezone { set; get; }
 	}
 }

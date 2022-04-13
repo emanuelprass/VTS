@@ -23,6 +23,12 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
 				RuleFor(assignment => assignment.Data.ShipData.DepartureTime).NotEmpty();
 				RuleFor(assignment => assignment.Data.ShipData.ArrivalTime).NotEmpty();
 			});
+			
+			// When(assignment => assignment.Data.Batch != null, () => {
+				// RuleFor(assignment => assignment.Data.Batch.DeliveryMode).NotEmpty();
+				// RuleFor(assignment => assignment.Data.Batch.PickUpTime).NotEmpty();
+				// RuleFor(assignment => assignment.Data.Batch.Timezone).NotEmpty();
+			// });
         }
     }
 }

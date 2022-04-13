@@ -44,7 +44,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
                 .AddParam("ArrivalTime", request.Data.ShipData != null ? request.Data.ShipData.ArrivalTime : null)
                 .AddParam("UpdatedBy", request.Data.UpdatedBy)
                 .Exec(r => spinsertAssignment = r.ToList<MasterDataAssignment>());
-
+			
 			if (spinsertAssignment.Any())
 			{
 				foreach (var result in spinsertAssignment)
@@ -60,6 +60,35 @@ namespace SceletonAPI.Application.UseCases.MasterData.Command.AssignmentCreateUp
 				}
 			}
 			response.Data = data;
+			
+			if (request.Data.Batch.Any())
+			{
+			foreach( var batch in request.Data.Batch)
+				{
+					_context.loadStoredProcedureBuilder("SP_InsertUpdate_Batch")
+					.AddParam("ID", request.Data.Id.HasValue ? request.Data.Id : 0)
+					.AddParam("BatchID", batch.BatchId)
+					.AddParam("DeliveryMode", batch.DeliveryMode)
+					.AddParam("PickUpTime", batch.PickUpTime)
+					.AddParam("Timezone", batch.Timezone)
+					.AddParam("UpdatedBy", request.Data.UpdatedBy)
+					.Exec(r => spinsertAssignment = r.ToList<MasterDataAssignment>());
+					
+					if (spinsertAssignment.Any())
+					{
+						foreach (var result in spinsertAssignment)
+						{
+							if (result.Message != null)
+							{
+							response.Success = true;
+							response.Message = result.Message;
+							
+							return response;
+							}
+						}
+					}
+				}
+			}			
             response.Success = true;
             response.Message = "Assignment berhasil dibuat atau diupdate";
             

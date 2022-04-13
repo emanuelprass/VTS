@@ -29,6 +29,7 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.AssignmentList
 
 			AssignmentListDtoMeta meta = null;
             List<AssignmentListDtoData> data = null;
+			List<PickUp> pickUp = null;
 
             _context.loadStoredProcedureBuilder("SP_List_AssignmentMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
@@ -42,7 +43,15 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.AssignmentList
 
                 return response;
             }
-
+			
+			foreach (var dat in data)
+			{
+				_context.loadStoredProcedureBuilder("SP_List_AssignmentMasterData")
+					.AddParam("Page", request.Page != null ? request.Page : 0)
+					.AddParam("Limit", request.Limit)
+					.AddParam("ID", dat.ID)
+					.Exec(r => pickUp = r.ToList<PickUp>());
+			}
             _context.loadStoredProcedureBuilder("SP_List_AssignmentMasterData")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
@@ -51,6 +60,12 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.AssignmentList
             response.Meta = meta;
 			response.Meta.Page = request.Page > 0 ? request.Page : 1;
             response.Meta.Limit = request.Limit > 0 ? request.Limit : meta.TotalData;
+			
+			foreach (var dat in data)
+			{
+				dat.PickUp = pickUp;
+			}
+			
 			response.Data = data;
 			
             response.Success = true;
