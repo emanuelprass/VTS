@@ -35,7 +35,7 @@ namespace SceletonAPI.Presenter.Controllers.DeliveryOrder
         {
 
             foreach (var i in Payload)
-            {                
+            {
                 i.created_by = "SAP_ADMIN";
                 i.updated_by = "SAP_ADMIN";
             }
@@ -48,16 +48,19 @@ namespace SceletonAPI.Presenter.Controllers.DeliveryOrder
         [Route("/deliveryorder/list")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<DeliveryOrderListDtoData>> List(
-            [FromQuery(Name = "page")] int? _Page,
-            [FromQuery(Name = "limit")] int? _Limit,
-            [FromQuery(Name = "filter")] string _Filter
-            )
-        {            
+           [FromQuery(Name = "page")] int? _Page,
+           [FromQuery(Name = "limit")] int? _Limit,
+           [FromQuery(Name = "key")] string _Key,
+           [FromQuery(Name = "value")] string _Value
+           )
+        {
             var Query = new DeliveryOrderListQuery
             {
                 Page = _Page,
                 Limit = _Limit,
-                Filter = _Filter
+                Key = _Key,
+                Value = _Value
+
             };
             return Ok(await Mediator.Send(Query));
         }
@@ -72,7 +75,7 @@ namespace SceletonAPI.Presenter.Controllers.DeliveryOrder
         //     return Ok(response);
         // }
 
-        
+
 
     }
 }
