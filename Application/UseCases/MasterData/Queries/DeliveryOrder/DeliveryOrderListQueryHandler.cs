@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace SceletonAPI.Application.UseCases.MasterData.Queries.DeliveryOrderList
 {
-	public class DeliveryOrderListQueryHandler : IRequestHandler<DeliveryOrderListQuery, DeliveryOrderListDto>
-	{
+    public class DeliveryOrderListQueryHandler : IRequestHandler<DeliveryOrderListQuery, DeliveryOrderListDto>
+    {
         private readonly IVTSDBContext _context;
         private readonly IMapper _mapper;
 
@@ -25,10 +25,11 @@ namespace SceletonAPI.Application.UseCases.MasterData.Queries.DeliveryOrderList
             var response = new DeliveryOrderListDto();
 
             List<DeliveryOrderListDtoData> DeliveryOrders = null;
-            _context.loadStoredProcedureBuilder("sp_List_DeliveryOrderMasterData")
+            _context.loadStoredProcedureBuilder("sp_List_DeliveryOrderMasterData_v1")
                 .AddParam("Page", request.Page != null ? request.Page : 0)
                 .AddParam("Limit", request.Limit)
-                .AddParam("Filter", request.Filter)
+                .AddParam("Key", request.Key)
+                .AddParam("Value", request.Value)
                 .Exec(r => DeliveryOrders = r.ToList<DeliveryOrderListDtoData>());
 
             if (!DeliveryOrders.Any())
